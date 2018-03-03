@@ -17,15 +17,15 @@ module('Acceptance | calculator', function(hooks) {
 
     assert.equal($('h3.display').text(), '0');
 
-    await $('#0').click()
+    await $('#0').click();
     assert.equal($('h3.display').text(), '0');
 
-    await $('#0').click()
+    await $('#0').click();
     assert.equal($('h3.display').text(), '0');
 
-    await $('#1').click()
-    await $('#2').click()
-    await $('#3').click()
+    await $('#1').click();
+    await $('#2').click();
+    await $('#3').click();
     assert.equal($('h3.display').text(), '123');
   });
 
@@ -85,5 +85,19 @@ module('Acceptance | calculator', function(hooks) {
     assert.equal($('.history-container.calculator-container ul li').length, 4);
     assert.equal($('.history-container.calculator-container ul li:first').text(), "1 + 1 = 2");
     assert.equal($('.history-container.calculator-container ul li:last').text(), "4 + 4 = 8");
+  });
+
+  test('it prevents operation to perform if is not correct', async (assert) => {
+    await visit('/');
+    const history = []
+    localStorage.setItem('calculatorHistory', JSON.stringify(history));
+    await $('.button.perform').click();
+    assert.equal($('h3.display').text(), '0');
+    await $('#1').click();
+    await $('#2').click();
+    await $('#3').click();
+    assert.equal($('h3.display').text(), '123');
+    await $('.button.perform').click();
+    assert.equal($('h3.display').text(), '123');
   });
 });

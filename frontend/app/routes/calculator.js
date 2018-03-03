@@ -19,19 +19,21 @@ export default Route.extend({
 
     perform() {
       let model = this.get('controller.model');
-      $.ajax({
-        url: '/api/calculate',
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        data: model.toParams(),
-        type: 'POST',
-        success: function(response) {
-          model.receivedResult(response['result']);
-        },
-        error: function() {
-          model.receivedResult('NaN');
-        }
-      });
+      if (model.get('firstOperand') != null && model.get('operation') != null) {
+        $.ajax({
+          url: '/api/calculate',
+          contentType: 'application/json; charset=utf-8',
+          dataType: 'json',
+          data: model.toParams(),
+          type: 'POST',
+          success: function(response) {
+            model.receivedResult(response['result']);
+          },
+          error: function() {
+            model.receivedResult('NaN');
+          }
+        });
+      }
     }
   }
 });

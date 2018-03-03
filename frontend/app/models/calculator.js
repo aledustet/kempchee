@@ -1,6 +1,6 @@
 import EmberObject, { computed } from '@ember/object';
 
-const Calculator = EmberObject.extend({
+export default EmberObject.extend({
   firstOperand: null,
   operation: null,
   currentNumber: null,
@@ -8,20 +8,21 @@ const Calculator = EmberObject.extend({
   result: null,
   operands: null,
   history: null,
+  unaryOperations: null,
 
   init() {
     this.set('currentNumber', '0');
     this.set('numbers', ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
-    this.set('operands', ['+','-','*','**','sqrt']);
+    this.set('operands', ['+', '-', '*', '/', '**', 'sqrt']);
+    this.set('unaryOperations', ['sqrt']);
     const history = JSON.parse(localStorage.getItem('calculatorHistory'));
     this.set('history', history == null ? [] : history);
   },
 
   shouldReplaceCurrentNumber() {
     let currentNumber = this.get('currentNumber');
-    let result        = this.get('result');
 
-    return result != null || currentNumber == '0';
+    return currentNumber == '0';
   },
 
   numberToSet(number) {
@@ -76,10 +77,14 @@ const Calculator = EmberObject.extend({
   },
 
   toParams() {
+    let unaryOperations = this.get('unaryOperations');
+    let operation       = this.get('operation');
+    let secondOperand   = unaryOperations.indexOf(operation) >= 0 ? '' : this.get('currentNumber');
+    this.set('currentNumber', secondOperand);
     return JSON.stringify({
       firstOperand:  this.get('firstOperand'),
-      secondOperand: this.get('currentNumber'),
-      operation:     this.get('operation')
+      secondOperand: secondOperand,
+      operation:     operation
     });
   },
 
@@ -90,5 +95,3 @@ const Calculator = EmberObject.extend({
     this.set('result', null);
   }
 });
-
-export default Calculator;
