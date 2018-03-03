@@ -76,11 +76,11 @@ const Calculator = EmberObject.extend({
   },
 
   toParams() {
-    return {
+    return JSON.stringify({
       firstOperand:  this.get('firstOperand'),
       secondOperand: this.get('currentNumber'),
       operation:     this.get('operation')
-    }
+    });
   },
 
   reset() {

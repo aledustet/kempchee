@@ -21,12 +21,11 @@ export default Route.extend({
       let model = this.get('controller.model');
       $.ajax({
         url: '/api/calculate',
-        data: model.toParams(),
-        contentType: 'application/json',
+        contentType: 'application/json; charset=utf-8',
         dataType: 'json',
+        data: model.toParams(),
         type: 'POST',
-        success: function(data) {
-          let response = JSON.parse(data);
+        success: function(response) {
           model.receivedResult(response['result']);
         },
         error: function() {
