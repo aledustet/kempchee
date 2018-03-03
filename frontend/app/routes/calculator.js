@@ -9,10 +9,14 @@ export default Route.extend({
   actions: {
     addNumber(number) {
       let model = this.get('controller.model');
-      let currentNumber = model.get('currentNumber');
-      currentNumber += number;
-      model.set('currentNumber', currentNumber);
+      model.addNumber(number);
     },
+
+    operate(operand) {
+      let model = this.get('controller.model');
+      model.operate(operand);
+    },
+
     perform() {
       $.getJSON("/api/calculator").then(function(json) {
         return json;
