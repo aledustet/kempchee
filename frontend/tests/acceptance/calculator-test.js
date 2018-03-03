@@ -75,4 +75,15 @@ module('Acceptance | calculator', function(hooks) {
     await $('#2').click()
     assert.equal($('small.previous-operation').text(), '12 sqrt');
   });
+
+  test('it gets the history and shows it from the localStorage', async (assert) => {
+    const history = ["1 + 1 = 2", "2 + 2 = 4", "3 + 3 = 6", "4 + 4 = 8"]
+    localStorage.setItem('calculatorHistory', JSON.stringify(history));
+
+    await visit('/');
+
+    assert.equal($('.history-container.calculator-container ul li').length, 4);
+    assert.equal($('.history-container.calculator-container ul li:first').text(), "1 + 1 = 2");
+    assert.equal($('.history-container.calculator-container ul li:last').text(), "4 + 4 = 8");
+  });
 });

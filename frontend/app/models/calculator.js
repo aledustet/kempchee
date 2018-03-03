@@ -5,18 +5,23 @@ const Calculator = EmberObject.extend({
   operation: null,
   currentNumber: null,
   numbers: null,
+  result: null,
   operands: null,
+  history: null,
 
   init() {
     this.set('currentNumber', '0');
     this.set('numbers', ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
     this.set('operands', ['+','-','*','**','sqrt']);
+    const history = JSON.parse(localStorage.getItem('calculatorHistory'));
+    this.set('history', history == null ? [] : history);
   },
 
   shouldReplaceCurrentNumber() {
     let currentNumber = this.get('currentNumber');
+    let result        = this.get('result');
 
-    return currentNumber == '0';
+    return result != null || currentNumber == '0';
   },
 
   numberToSet(number) {
@@ -25,15 +30,20 @@ const Calculator = EmberObject.extend({
   },
 
   addNumber(number) {
+    let result        = this.get('result');
     let currentNumber = this.get('currentNumber');
     if(currentNumber != '0' || number != '0') {
       this.set('currentNumber', this.numberToSet(number));
+      if (result != null) {
+        this.set('result', null);
+      }
     }
   },
 
   operate(operand) {
     let firstOperand = this.get('firstOperand');
-    if(firstOperand == null) {
+    let result       = this.get('result');
+    if(firstOperand == null || result == null) {
       let currentNumber = this.get('currentNumber');
       this.set('firstOperand', currentNumber);
       this.set('currentNumber', '0');
@@ -51,6 +61,34 @@ const Calculator = EmberObject.extend({
     }
   }),
 
+  receivedResult(result) {
+    const firstOperand    = this.get('firstOperand');
+    const operation       = this.get('operation');
+    const currentNumber   = this.get('currentNumber');
+    let newEntryToHistory = `${firstOperand} ${operation} ${currentNumber} = ${result}`
+    let history = this.get('history');
+    if (history.length == 10) {
+      this.get('history').removeAt(9);
+    }
+    this.get('history').insertAt(0, newEntryToHistory);
+    localStorage.setItem('calculatorHistory', JSON.stringify(history));
+    this.reset();
+  },
+
+  toParams() {
+    return {
+      firstOperand:  this.get('firstOperand'),
+      secondOperand: this.get('currentNumber'),
+      operation:     this.get('operation')
+    }
+  },
+
+  reset() {
+    this.set('currentNumber', '0');
+    this.set('firstOperand', null);
+    this.set('operation', null);
+    this.set('result', null);
+  }
 });
 
 export default Calculator;

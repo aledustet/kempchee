@@ -14,4 +14,12 @@
 
     <button class="button" {{action 'perform'}}>=</button>
   </div>
+  <div class="history-container calculator-container">
+    <h4>Operations</h4>
+    <ul>
+      {{#each model.history as |history|}}
+        <li>{{history}}</li>
+      {{/each}}
+    </ul>
+  </div>
 </div>

@@ -18,8 +18,20 @@ export default Route.extend({
     },
 
     perform() {
-      $.getJSON("/api/calculator").then(function(json) {
-        return json;
+      let model = this.get('controller.model');
+      $.ajax({
+        url: '/api/calculate',
+        data: model.toParams(),
+        contentType: 'application/json',
+        dataType: 'json',
+        type: 'POST',
+        success: function(data) {
+          let response = JSON.parse(data);
+          model.receivedResult(response['result']);
+        },
+        error: function() {
+          model.receivedResult('NaN');
+        }
       });
     }
   }

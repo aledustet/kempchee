@@ -10,10 +10,11 @@
 }
 
 .history-container {
-  width: 25%;
-  float: left;
-  padding: 10px;
   text-align: center;
+}
+
+.history-container ul {
+  list-style-type: none;
 }
 
 .display-container {
