@@ -12,7 +12,7 @@ export default EmberObject.extend({
 
   init() {
     this.set('currentNumber', '0');
-    this.set('numbers', ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
+    this.set('numbers', ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']);
     this.set('operands', ['+', '-', '*', '/', '**', 'sqrt']);
     this.set('unaryOperations', ['sqrt']);
     const history = JSON.parse(localStorage.getItem('calculatorHistory'));

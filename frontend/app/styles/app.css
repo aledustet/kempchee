@@ -1,3 +1,7 @@
+body {
+  font-family: 'Orbitron', sans-serif;
+}
+
 .container {
   width: 500px;
   margin: 0 auto;
@@ -10,7 +14,7 @@
 }
 
 .history-container {
-  text-align: center;
+  text-align: right;
 }
 
 .history-container ul {
@@ -39,6 +43,35 @@
 .button {
   float: left;
   width: 30%;
-  height: 35px;
+  height: 40px;
   margin: 1%;
+  border-radius: 15px;
+  border-radius: 15px;
+  background-color: lightgray;
+  border: 0.5px solid black;
+}
+
+.number-button {
+  font-size: larger;
+  font-weight: bold;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.number-button:last-child {
+  margin-left: 33%;
+  margin-right: 33%;
+}
+
+.button.operation {
+  font-size: larger;
+  background-color: lightcyan;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.button.perform {
+  width: 94%;
+  font-weight: bold;
+  font-size: x-large;
+  font-family: 'Orbitron', sans-serif;
+  background-color: lightgreen;
 }

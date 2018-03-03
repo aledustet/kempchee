@@ -4,12 +4,14 @@
       <small class='previous-operation'>{{model.previousOperation}}</small>
       <h3 class='display'>{{model.currentNumber}}</h3>
     </div>
-    {{#each model.numbers as |number|}}
-      <button {{action 'addNumber' number}} id={{number}} class="button">{{number}}</button>
-    {{/each}}
+    <div class='numbers'>
+      {{#each model.numbers as |number|}}
+        <button {{action 'addNumber' number}} id={{number}} class="button number-button">{{number}}</button>
+      {{/each}}
+    </div>
 
     {{#each model.operands as |operand|}}
-      <button {{action 'operate' operand}} id={{operand}} class="button">{{operand}}</button>
+      <button {{action 'operate' operand}} id={{operand}} class="button operation">{{operand}}</button>
     {{/each}}
 
     <button class="button perform" {{action 'perform'}}>=</button>

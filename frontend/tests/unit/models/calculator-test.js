@@ -17,7 +17,7 @@ test('intializes properties correctly', (assert) => {
   const operands = ['+', '-', '*', '/', '**', 'sqrt'];
   assert.equal(subject.get('currentNumber'), '0');
   assert.equal(subject.get('numbers').length, numbers.length);
-  assert.equal(subject.get('numbers')[numbers.length - 1], '9');
+  assert.equal(subject.get('numbers')[numbers.length - 1], '0');
   assert.equal(subject.get('operands').length, operands.length);
   assert.equal(subject.get('operands')[0], '+');
   assert.equal(subject.get('history')[0], '1 + 1 = 2');
