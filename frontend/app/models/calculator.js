@@ -5,14 +5,12 @@ const Calculator = EmberObject.extend({
   secondOperand: null,
   operation: null,
   currentNumber: null,
+  numbers: null,
 
   init() {
     this.set('currentNumber', '');
+    this.set('numbers', ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])
   },
-
-  addNumber: computed('currentNumber', function(number) {
-    this.get('currentNumber').pushObject(number);
-  }),
 
   operate: computed('operation', 'firstOperand', function(operation) {
     let operand = this.get('firstOperand');

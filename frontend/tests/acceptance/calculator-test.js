@@ -1,17 +1,25 @@
 import { module, test, skip } from 'qunit';
 import { visit, currentURL } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
+import $ from 'jquery';
 
 module('Acceptance | calculator', function(hooks) {
   setupApplicationTest(hooks);
 
-  test('visiting /', async function(assert) {
+  test('visiting /', async (assert) => {
     await visit('/');
 
     assert.equal(currentURL(), '/');
   });
 
-  skip('should show the calculator numbers', function () {
+  test('should show the calculator numbers', async (assert) => {
+    await visit('/');
+
+    await $('#1').click()
+    assert.equal($('h3.display').text(), '1');
+
+    await $('#2').click()
+    assert.equal($('h3.display').text(), '12');
   });
 
   skip('should show the calculator operation buttons', function () {
